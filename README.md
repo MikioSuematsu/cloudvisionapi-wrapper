@@ -23,7 +23,7 @@
 
 
 # API DEMO Page
-[DEMOページはこちら](./demo/demo.html)
+[DEMOページはこちら](./demo/index.html)
 
 
 # Cloud Vision Wrapper API の環境構築について
