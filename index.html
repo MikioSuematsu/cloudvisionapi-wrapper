@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Cloudvisionapi-wrapper : It is an application that can easily try the Google Cloud Vision API. This application runs on App Engine.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Cloudvisionapi-wrapper</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/MikioSuematsu/cloudvisionapi-wrapper">View on GitHub</a>
+
+          <h1 id="project_title">Cloudvisionapi-wrapper</h1>
+          <h2 id="project_tagline">It is an application that can easily try the Google Cloud Vision API. This application runs on App Engine.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/MikioSuematsu/cloudvisionapi-wrapper/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/MikioSuematsu/cloudvisionapi-wrapper/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="cloud-vision-wrapper-api" class="anchor" href="#cloud-vision-wrapper-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cloud Vision Wrapper API</h1>
+
+<p>これは、<a href="https://cloud.google.com/vision/docs/">Cloud Vision API </a>　をお手軽に Google App Engine上で試せるソースコードになります。</p>
+
+<h2>
+<a id="api仕様" class="anchor" href="#api%E4%BB%95%E6%A7%98" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API仕様</h2>
+
+<h3>
+<a id="api-のパラメータ" class="anchor" href="#api-%E3%81%AE%E3%83%91%E3%83%A9%E3%83%A1%E3%83%BC%E3%82%BF" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API のパラメータ</h3>
+
+<ul>
+<li>url 画像のURL</li>
+<li>cache: レスポンスや画像をキャッシュするかどうか。１の場合はキャッシュする。０の場合はキャッシュしない。</li>
+<li>callback: JSONPを利用する場合にコールバック関数名を指定する</li>
+<li>type: `Cloud Vision API  の Future Type。以下のパラメータが指定可能
+
+<ul>
+<li>FACE_DETECTION    顔認識</li>
+<li>LANDMARK_DETECTION    ランドマークの認識</li>
+<li>LOGO_DETECTION    製品ロゴの認識</li>
+<li>LABEL_DETECTION    画像コンテンツの認識 (ラベリング)</li>
+<li>TEXT_DETECTION    画像内テキストの認識 (OCR)</li>
+<li>SAFE_SEARCH_DETECTION    セーフサーチの判定</li>
+<li>IMAGE_PROPERTIES  色解析</li>
+</ul>
+</li>
+</ul>
+
+<h3>
+<a id="apiサンプルリクエスト" class="anchor" href="#api%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>APIサンプルリクエスト</h3>
+
+<p><code>http://xxxxxxxxxxx.appspot.com/?url=http://xxxxxxxxxx.com/image.jpg</code></p>
+
+<h1>
+<a id="api-demo-page" class="anchor" href="#api-demo-page" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API DEMO Page</h1>
+
+<p><a href="./demo/index.html">DEMOページはこちら</a></p>
+
+<h1>
+<a id="cloud-vision-wrapper-api-の環境構築について" class="anchor" href="#cloud-vision-wrapper-api-%E3%81%AE%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cloud Vision Wrapper API の環境構築について</h1>
+
+<h2>
+<a id="環境準備" class="anchor" href="#%E7%92%B0%E5%A2%83%E6%BA%96%E5%82%99" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>環境準備</h2>
+
+<p><a href="https://console.cloud.google.com/appengine">App Engineの管理画面</a>からGo言語のサンプル・アプリケーションをダウンロードするか、本ソースをダウンロードしてください。</p>
+
+<h2>
+<a id="cloud-storageの準備" class="anchor" href="#cloud-storage%E3%81%AE%E6%BA%96%E5%82%99" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cloud Storageの準備</h2>
+
+<p>このアプリケーションは、 Cloud Storage を利用するため、Cloud Storage上でバケットを作成してください。
+また、作成したバケットについては、 <code>AllUsers</code> ユーザーに対して <code>読み取り</code> の権限を付与してください。</p>
+
+<h2>
+<a id="ソースの修正" class="anchor" href="#%E3%82%BD%E3%83%BC%E3%82%B9%E3%81%AE%E4%BF%AE%E6%AD%A3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ソースの修正</h2>
+
+<p>サンプル・アプリケーションをダウンロードした場合は、本ソースの hallo.go をコピー＆ペーストして以下の部分を修正してください。本ソースをそのままダウンロードした場合は、以下の部分と <code>app.yaml</code> の <code>application</code> 項目の変更をお願いします。</p>
+
+<pre><code>var API_KEY = "API_KEYを貼り付けてください";
+var BUCKET_NAME = "作成したバケット名を記載してください"
+</code></pre>
+
+<h1>
+<a id="デプロイ方法については以下のコマンドでデプロイしてください" class="anchor" href="#%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E6%96%B9%E6%B3%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%81%AF%E4%BB%A5%E4%B8%8B%E3%81%AE%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%81%A7%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>デプロイ方法については、以下のコマンドでデプロイしてください。</h1>
+
+<pre><code>goapp deploy -application [ProjectName] app.yaml
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Cloudvisionapi-wrapper maintained by <a href="https://github.com/MikioSuematsu">MikioSuematsu</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
