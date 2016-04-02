@@ -8,6 +8,8 @@
 <body>
 <!--JSON整形-->
 <script src="./json.human.js"></script>
+<!-- 円グラフ -->
+<script src="./Chart.js"></script>
 <script>
     function sendRequest() {
         console.log("send request start");
@@ -100,7 +102,48 @@
                     drawLine(context, annotations[i].boundingPoly.vertices);
                 }
             } else {
-                canvasDiv.removeChild(canvasDiv.firstChild);
+                for (var i =canvasDiv.childNodes.length-1; i>=0; i--) {
+                    canvasDiv.removeChild(canvasDiv.childNodes[i]);
+                }
+            }
+
+            //色解析の表示
+            var colorCanvasDiv = document.getElementsByClassName('color_canvas')[0];
+            if (type === "IMAGE_PROPERTIES" && result !== null
+                    && typeof (result.responses) !== "undefined" && result.responses.length > 0) {
+                var canvasTag = document.createElement("canvas");
+                canvasTag.id = "color";
+                canvasTag.width = 500;
+                canvasTag.height = 500;
+                colorCanvasDiv.appendChild(canvasTag);
+
+                var colors = result.responses[0].imagePropertiesAnnotation.dominantColors.colors;
+                var doughnutDataList = [];
+                for(var i=0; i<colors.length; i++) {
+                    var red = 0;
+                    var green = 0;
+                    var blue = 0;
+                    if (typeof colors[i].color.red !== "undefined") {
+                        red = colors[i].color.red.toString(16);
+                    }
+                    if (typeof colors[i].color.green !== "undefined") {
+                        green = colors[i].color.green.toString(16);
+                    }
+                    if (typeof colors[i].color.blue !== "undefined") {
+                        blue = colors[i].color.blue.toString(16);
+                    }
+                    var doughnutData = {
+                        value: colors[i].score,
+                        color:"#" + ("0"+ red).slice(-2) + ("0"+ green).slice(-2) + ("0"+ blue).slice(-2)
+                    };
+                    doughnutDataList.push(doughnutData);
+                }
+                var myDoughnut = new Chart(document.getElementById("color").
+                getContext("2d")).Doughnut(doughnutDataList);
+            } else {
+                for (var i =colorCanvasDiv.childNodes.length-1; i>=0; i--) {
+                    colorCanvasDiv.removeChild(colorCanvasDiv.childNodes[i]);
+                }
             }
         }
         //リクエススト送信
@@ -183,6 +226,7 @@
     <div class="typeradio"><input type="radio" name="type" id="LOGO_DETECTION"><label for="LOGO_DETECTION">製品ロゴの認識</label></div>
     <div class="typeradio"><input type="radio" name="type" id="TEXT_DETECTION"><label for="TEXT_DETECTION">画像内テキストの認識 (OCR)</label></div>
     <div class="typeradio"><input type="radio" name="type" id="SAFE_SEARCH_DETECTION"><label for="SAFE_SEARCH_DETECTION">セーフサーチの判定</label></div>
+        <div class="typeradio"><input type="radio" name="type" id="IMAGE_PROPERTIES"><label for="IMAGE_PROPERTIES">色解析</label></div>
     <div><button class="button" onclick="sendRequest();">実行</button></div>
     <span>指定した画像：<br></span>
     <img class="srcimg" id="srcimg" src="">
@@ -194,6 +238,8 @@
         <div id="landmark"></div>
         <div><span>顔認識：<br></span></div>
         <div class="face_canvas"><br></div>
+        <div><span>色解析：<br></span></div>
+        <div class="color_canvas"><br></div>
         <span>レスポンス：<br></span>
         <div class="response_table"></div>
     </div>
